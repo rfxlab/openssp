@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE xml>
 <Configuration status="warn" monitorInterval="30">
+	<Properties>
+		<Property name="BASE_FOLDER">BUILD</Property>
+	</Properties>
 	<Appenders>
 
 		<!-- loglevel, Levels are organized from most specific to least: -->
@@ -14,8 +17,8 @@
 		<!-- - ALL (least specific, all data) -->
 
 		<RollingFile name="InfoFile"
-			fileName="${sys:catalina.home}/logfiles/ssp/runtime/ssp-info.log"
-			filePattern="${sys:catalina.home}/logfiles/ssp/runtime/ssp-info-%d{yyyy-MM}-%i.log.gz"
+			fileName="${BASE_FOLDER}/logfiles/ssp/runtime/ssp-info.log"
+			filePattern="${BASE_FOLDER}/logfiles/ssp/runtime/ssp-info-%d{yyyy-MM}-%i.log.gz"
 			bufferedIO="true" append="true">
 			<PatternLayout>
 				<Pattern>[%d] %m%n</Pattern>
@@ -30,8 +33,8 @@
 
 		<!-- adserving-request.log -->
 		<RollingFile name="AdservingRequestFile"
-			fileName="${sys:catalina.home}/logfiles/ssp/runtime/adserving/adserving-request.log"
-			filePattern="${sys:catalina.home}/logfiles/ssp/runtime/adserving/adserving-request-%d.log.gz"
+			fileName="${BASE_FOLDER}/logfiles/ssp/runtime/adserving/adserving-request.log"
+			filePattern="${BASE_FOLDER}/logfiles/ssp/runtime/adserving/adserving-request-%d.log.gz"
 			bufferedIO="true" append="true">
 
 			<PatternLayout>
@@ -45,8 +48,8 @@
 
 		<!-- adserving-response.log -->
 		<RollingFile name="AdservingResponseFile"
-			fileName="${sys:catalina.home}/logfiles/ssp/runtime/adserving/adserving-response.log"
-			filePattern="${sys:catalina.home}/logfiles/ssp/runtime/adserving/adserving-response-%d.log.gz"
+			fileName="${BASE_FOLDER}/logfiles/ssp/runtime/adserving/adserving-response.log"
+			filePattern="${BASE_FOLDER}/logfiles/ssp/runtime/adserving/adserving-response-%d.log.gz"
 			bufferedIO="true" append="true">
 
 			<PatternLayout>
@@ -61,8 +64,8 @@
 
 		<!-- bidresponse.log -->
 		<RollingFile name="BidResponseFile"
-			fileName="${sys:catalina.home}/logfiles/ssp/runtime/rtb/bidresponse.log"
-			filePattern="${sys:catalina.home}/logfiles/ssp/runtime/rtb/bidresponse-%d.log.gz"
+			fileName="${BASE_FOLDER}/logfiles/ssp/runtime/rtb/bidresponse.log"
+			filePattern="${BASE_FOLDER}/logfiles/ssp/runtime/rtb/bidresponse-%d.log.gz"
 			bufferedIO="true" append="true">
 
 			<PatternLayout>
@@ -77,8 +80,8 @@
 
 		<!-- bidrequest.log -->
 		<RollingFile name="BidRequestFile"
-			fileName="${sys:catalina.home}/logfiles/ssp/runtime/rtb/bidrequest.log"
-			filePattern="${sys:catalina.home}/logfiles/ssp/runtime/rtb/bidrequest-%d.log.gz"
+			fileName="${BASE_FOLDER}/logfiles/ssp/runtime/rtb/bidrequest.log"
+			filePattern="${BASE_FOLDER}/logfiles/ssp/runtime/rtb/bidrequest-%d.log.gz"
 			bufferedIO="true" append="true">
 
 			<PatternLayout>
@@ -93,8 +96,8 @@
 
 		<!-- provider.log -->
 		<RollingFile name="ProviderFile"
-			fileName="${sys:catalina.home}/logfiles/ssp/provider.log"
-			filePattern="${sys:catalina.home}/logfiles/ssp/provider-%d.log.gz"
+			fileName="${BASE_FOLDER}/logfiles/ssp/provider.log"
+			filePattern="${BASE_FOLDER}/logfiles/ssp/provider-%d.log.gz"
 			bufferedIO="true" append="true">
 
 			<PatternLayout>
@@ -108,8 +111,8 @@
 
 		<!-- exception.log -->
 		<RollingFile name="ErrorFile"
-			fileName="${sys:catalina.home}/logfiles/ssp/exception/exception.log"
-			filePattern="${sys:catalina.home}/logfiles/ssp/exception/exception-%d.log.gz"
+			fileName="${BASE_FOLDER}/logfiles/ssp/exception/exception.log"
+			filePattern="${BASE_FOLDER}/logfiles/ssp/exception/exception-%d.log.gz"
 			bufferedIO="true" append="true">
 			<PatternLayout>
 				<Pattern>[%d] %C{1.} %m%n</Pattern>
@@ -121,8 +124,7 @@
 		</RollingFile>
 
 		<RollingFile name="RequestFile"
-			fileName="${sys:catalina.home}/logfiles/ssp/request.log"
-			filePattern="${sys:catalina.home}/logfiles/ssp/request-%d.log.gz"
+			fileName="${BASE_FOLDER}/logfiles/ssp/request.log" filePattern="${BASE_FOLDER}/logfiles/ssp/request-%d.log.gz"
 			append="true" bufferedIO="true">
 			<PatternLayout>
 				<Pattern>[%d]#%m%n</Pattern>
@@ -136,7 +138,7 @@
 
 
 		<!-- tomcat.pid -->
-		<File name="PIDFile" fileName="${sys:catalina.home}/logfiles/tomcat.pid"
+		<File name="PIDFile" fileName="${BASE_FOLDER}/logfiles/tomcat.pid"
 			append="false">
 			<PatternLayout>
 				<Pattern>%m%n</Pattern>
@@ -186,15 +188,14 @@
 			<AppenderRef ref="RequestFile" />
 		</Logger>
 
-		<!-- <Root level="info" additivity="false">
-			<AppenderRef ref="console" />
-		</Root> -->
-		
+		<!-- <Root level="info" additivity="false"> <AppenderRef ref="console" 
+			/> </Root> -->
+
 		<Root level="all">
 			<AppenderRef ref="InfoFile" level="info" />
-			<AppenderRef ref="console" level="all"/>
-			<AppenderRef ref="ErrorFile" level="error"/>
-			<AppenderRef ref="DebugFile" level="debug"/>
+			<AppenderRef ref="console" level="all" />
+			<AppenderRef ref="ErrorFile" level="error" />
+			<AppenderRef ref="DebugFile" level="debug" />
 		</Root>
 	</Loggers>
 </Configuration>

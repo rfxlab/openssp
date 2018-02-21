@@ -38,47 +38,39 @@ public class SessionAgentParamsTest {
 		final MockHttpServletResponse response = new MockHttpServletResponse();
 
 		request.addParameter("site", "1");
+		request.addParameter("w", "1024");
+		request.addParameter("h", "768");
+		request.addParameter("prot", "3");
+		request.addParameter("domain", "atg.com");
+		request.addParameter("sd", "0");
+		request.addParameter("prot", "3");
+		request.addParameter("page", "atg.com");
+		request.addParameter("mimes", "video/mp4");
 
 		RequestSessionAgent agent = null;
 		try {
 			agent = new RequestSessionAgent(request, response);
 		} catch (final RequestException e) {
+			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
 
 		Assert.assertEquals("1", agent.getParamValues().getSite().getId());
-	}
+		
+//		Assert.assertEquals(zoneid, agent.getParamValues().getZone().getZoneId());
+//		Assert.assertEquals(websiteid, agent.getParamValues().getZone().getWebsiteId());
+//		Assert.assertEquals(zoneid, agent.getParamValues().getWebsite().getZones()[0].getZoneId());
+//		Assert.assertEquals(adid, agent.getParamValues().getVideoad().getVideoadId());
+		Assert.assertEquals(0, agent.getParamValues().getStartdelay());
+		//Assert.assertEquals("atg.com", agent.getParamValues().getDomain());
+		Assert.assertEquals("768", agent.getParamValues().getH());
+		Assert.assertEquals("1024", agent.getParamValues().getW());
 
-	// @Test
-	// public void testParamsAlternative() {
-	// final MockHttpServletRequest request = new MockHttpServletRequest();
-	// final MockHttpServletResponse response = new MockHttpServletResponse();
-	//
-	// request.addParameter("w", "1024");
-	// request.addParameter("h", "768");
-	// request.addParameter("prot", "3");
-	// request.addParameter("domain", "atg.com");
-	//
-	// RequestSessionAgent agent = null;
-	// try {
-	// agent = new RequestSessionAgent(request, response);
-	// } catch (final RequestException e) {
-	// Assert.fail(e.getMessage());
-	// }
-	//
-	// // Assert.assertEquals(zoneid, agent.getParamValues().getZone().getZoneId());
-	// // Assert.assertEquals(websiteid, agent.getParamValues().getZone().getWebsiteId());
-	// // Assert.assertEquals(zoneid, agent.getParamValues().getWebsite().getZones()[0].getZoneId());
-	// // Assert.assertEquals(adid, agent.getParamValues().getVideoad().getVideoadId());
-	// Assert.assertEquals(0, agent.getParamValues().getStartdelay());
-	// Assert.assertEquals("atg.com", agent.getParamValues().getDomain());
-	// Assert.assertEquals("768", agent.getParamValues().getH());
-	// Assert.assertEquals("1024", agent.getParamValues().getW());
-	//
-	// // Assert.assertEquals(String.valueOf(websiteid), agent.getParamValues().getPublisherid());
-	// Assert.assertEquals("video/mp4", agent.getParamValues().getMimes().get(0));
-	// Assert.assertEquals(new Integer(3), agent.getParamValues().getProtocols().get(0));
-	// Assert.assertEquals("atg.com", agent.getParamValues().getPage());
-	// }
+		// Assert.assertEquals(String.valueOf(websiteid),
+		// agent.getParamValues().getPublisherid());
+		Assert.assertEquals("video/mp4", agent.getParamValues().getMimes().get(0));
+		Assert.assertEquals(new Integer(3), agent.getParamValues().getProtocols().get(0));
+		Assert.assertEquals("atg.com", agent.getParamValues().getPage());
+	}
 
 }
