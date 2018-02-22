@@ -8,12 +8,14 @@
 		<artifactId>open-ssp-parent</artifactId>
 		<version>0.2</version>
 	</parent>
+	
 	<artifactId>open-ssp-common</artifactId>
 	<name>open-ssp-common</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	
 	<dependencies>
 	
 		<dependency>

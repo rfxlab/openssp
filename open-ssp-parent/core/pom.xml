@@ -3,15 +3,18 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
+	<!--  
 	<packaging>war</packaging>
+	-->
 
 	<parent>
 		<groupId>com.atg.openssp</groupId>
 		<artifactId>open-ssp-parent</artifactId>
 		<version>0.2</version>
 	</parent>
-	<artifactId>core</artifactId>
-	<name>core</name>
+	
+	<artifactId>open-ssp-core</artifactId>
+	<name>open-ssp-core</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
