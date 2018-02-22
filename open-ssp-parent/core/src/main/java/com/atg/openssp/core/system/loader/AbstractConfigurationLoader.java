@@ -1,5 +1,8 @@
 package com.atg.openssp.core.system.loader;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.Properties;
 import java.util.Set;
@@ -41,7 +44,8 @@ public abstract class AbstractConfigurationLoader implements DynamicLoadable {
 	}
 
 	/**
-	 * Reads the values from the properties file and loads services behind the values, if necessary.
+	 * Reads the values from the properties file and loads services behind the
+	 * values, if necessary.
 	 */
 	@Override
 	public void readValues() {
@@ -96,16 +100,18 @@ public abstract class AbstractConfigurationLoader implements DynamicLoadable {
 	 * @param key
 	 * @param value
 	 */
-	protected void readSpecials(final ContextProperties key, final String value) {}
+	protected void readSpecials(final ContextProperties key, final String value) {
+	}
 
 	protected abstract void finalWork();
 
 	private void loadProperties() {
 		try {
 			if (StringUtils.isNotEmpty(propertiesFile)) {
+				log.info("propertiesFile " + propertiesFile);
 				properties = ProjectProperty.getRuntimeProperties(propertiesFile);
 			}
-		} catch (final PropertyException e) {
+		} catch (final Exception e) {
 			log.error(e.getMessage());
 		}
 	}

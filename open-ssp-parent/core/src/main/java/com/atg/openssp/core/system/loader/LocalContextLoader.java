@@ -19,6 +19,10 @@ public class LocalContextLoader extends AbstractConfigurationLoader {
 	public LocalContextLoader(final CountDownLatch cdl) {
 		super(Context.RUNTIME_LOCAL_XML, cdl);
 	}
+	
+	public LocalContextLoader(final String configPath, final CountDownLatch cdl) {
+		super(configPath,cdl);
+	}
 
 	@Override
 	protected void readSpecials(final ContextProperties key, final String value) {

@@ -60,6 +60,7 @@ public class EntryValidator {
 		pm.setPage(checkValue(request.getParameter("page"), pm.getDomain()));
 		pm.setStartdelay(Integer.valueOf(checkValue(request.getParameter("sd"), "0")));
 		pm.setProtocols(convertProtocolValues(request.getParameter("prot")));
+		pm.setIsTest(checkValue(request.getParameter("test"), "0"));
 
 		return pm;
 	}

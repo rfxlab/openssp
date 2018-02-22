@@ -20,6 +20,10 @@ public class GlobalContextLoader extends AbstractConfigurationLoader {
 	public GlobalContextLoader(final CountDownLatch cdl) {
 		super(Context.RUNTIME_GLOBAL_XML, cdl);
 	}
+	
+	public GlobalContextLoader(final String configPath, final CountDownLatch cdl) {
+		super(configPath,cdl);
+	}
 
 	@Override
 	protected void readSpecials(final ContextProperties key, final String value) {

@@ -15,6 +15,7 @@ import com.atg.openssp.common.demand.Supplier;
 import com.atg.openssp.common.exception.InvalidBidException;
 import com.atg.openssp.core.exchange.Auction;
 import com.atg.openssp.core.exchange.RtbAdProvider;
+import com.google.gson.Gson;
 
 import openrtb.bidrequest.model.BidRequest;
 import openrtb.bidrequest.model.DirectDeal;
@@ -69,6 +70,7 @@ public class AuctionServiceDealSingleBidTest {
 		bidExchange.setBidResponse(supplier, response);
 		try {
 			final RtbAdProvider winner = Auction.auctioneer(bidExchange);
+			System.out.println(new Gson().toJson(winner));
 			Assert.assertEquals(impFloor, winner.getPrice(), 0);
 			Assert.assertTrue(winner.isValid());
 		} catch (final InvalidBidException e) {

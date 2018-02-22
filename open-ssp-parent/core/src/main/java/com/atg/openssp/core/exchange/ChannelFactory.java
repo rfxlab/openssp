@@ -15,14 +15,15 @@ import channel.adserving.AdservingService;
  * @author André Schmer
  *
  */
-class ChannelFactory {
+public class ChannelFactory {
 
 	/**
-	 * Factory method creates a list of potential {@link Callable} to perform biddings. The activation of a channel depends on a implementation of that service
-	 * and the activation of the marker in the properties file.
+	 * Factory method creates a list of potential {@link Callable} to perform
+	 * biddings. The activation of a channel depends on a implementation of that
+	 * service and the activation of the marker in the properties file.
 	 * 
 	 * @param {@link
-	 *            SessionAgent}
+	 * 			SessionAgent}
 	 * @return a List of {@link Callable}
 	 * 
 	 * @see Callable
@@ -31,7 +32,7 @@ class ChannelFactory {
 	 * @see AdservingService
 	 * @see AdProviderReader
 	 */
-	static List<Callable<AdProviderReader>> createListOfChannels(final SessionAgent agent) {
+	public static List<Callable<AdProviderReader>> createListOfChannels(final SessionAgent agent) {
 		final List<Callable<AdProviderReader>> callables = new ArrayList<>();
 
 		/*
@@ -43,20 +44,22 @@ class ChannelFactory {
 		}
 
 		/*
-		 * activate if corresponding jar is imported and marker in properties file local.runtime.xml is set to true
+		 * activate if corresponding jar is imported and marker in properties file
+		 * local.runtime.xml is set to true
 		 * 
 		 */
-		// if (LocalContext.isAdservingChannelEnabled()) {
-		// callables.add(new AdservingService(agent));
-		// }
+		if (LocalContext.isAdservingChannelEnabled()) {
+			callables.add(new AdservingService(agent));
+		}
 
 		/*
-		 * activate if corresponding jar is imported and marker in properties file local.runtime.xml is set to true
+		 * activate if corresponding jar is imported and marker in properties file
+		 * local.runtime.xml is set to true
 		 * 
 		 */
-		// if (LocalContext.isSSPChannelEnabled()) {
-		// callables.add(new SSPService(agent));
-		// }
+//		if (LocalContext.isSSPChannelEnabled()) {
+//			callables.add(new SSPService(agent));
+//		}
 
 		return callables;
 	}

@@ -100,6 +100,7 @@ public class BidRequestBuilderTest {
 		final OpenRtbValidator validator = OpenRtbValidatorFactory.getValidator(OpenRtbInputType.BID_REQUEST, OpenRtbVersion.V2_4);
 		final ValidationResult result = validator.validate(jsonBidrequest);
 		log.info(result.getResult());
+		System.out.println(result.getResult());
 		Assert.assertTrue(validator.isValid(jsonBidrequest));
 	}
 }

@@ -35,7 +35,7 @@ public final class DemandExecutorServiceFacade {
 	 * @return a List of {@link Future}s containing {@link ResponseContainer}
 	 * @throws InterruptedException
 	 */
-	List<Future<ResponseContainer>> invokeAll(final List<DemandBroker> demandConnectors) throws InterruptedException {
+	public List<Future<ResponseContainer>> invokeAll(final List<DemandBroker> demandConnectors) throws InterruptedException {
 		final long execTO = (long) (GlobalContext.getExecutionTimeout() - (GlobalContext.getExecutionTimeout() * 0.2));
 		return service.invokeAll(demandConnectors, execTO, TimeUnit.MILLISECONDS);
 	}

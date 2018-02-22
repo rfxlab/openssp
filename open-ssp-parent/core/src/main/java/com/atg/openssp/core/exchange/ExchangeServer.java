@@ -2,6 +2,7 @@ package com.atg.openssp.core.exchange;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -14,6 +15,8 @@ import com.atg.openssp.common.core.entry.SessionAgent;
 import com.atg.openssp.common.core.exchange.Exchange;
 import com.atg.openssp.common.core.exchange.ExchangeExecutorServiceFacade;
 import com.atg.openssp.common.provider.AdProviderReader;
+import com.atg.openssp.core.exchange.channel.rtb.DemandService;
+import com.google.gson.Gson;
 
 import util.math.FloatComparator;
 
@@ -49,27 +52,38 @@ public class ExchangeServer implements Exchange<RequestSessionAgent> {
 		return evaluateResponse(agent, winner);
 	}
 
+//	private AdProviderReader execute(final SessionAgent agent) {
+//		try {
+//			final List<Callable<AdProviderReader>> callables = ChannelFactory.createListOfChannels(agent);
+//			final List<Future<AdProviderReader>> futures = ExchangeExecutorServiceFacade.instance.invokeAll(callables);
+//			final Future<AdProviderReader> winnerFuture = futures.stream().reduce(ExchangeServer::validate).orElse(null);
+//			if (winnerFuture != null) {
+//				try {
+//					return winnerFuture.get();
+//				} catch (final ExecutionException e) {
+//					log.error(e.getMessage());
+//				}
+//			} else {
+//				log.error("no winner detected");
+//			}
+//		} catch (final InterruptedException e) {
+//			log.error(e.getMessage());
+//		}
+//		return null;
+//	}
+	
+	//FIXME
 	private AdProviderReader execute(final SessionAgent agent) {
 		try {
-			final List<Callable<AdProviderReader>> callables = ChannelFactory.createListOfChannels(agent);
-			final List<Future<AdProviderReader>> futures = ExchangeExecutorServiceFacade.instance.invokeAll(callables);
-			final Future<AdProviderReader> winnerFuture = futures.stream().reduce(ExchangeServer::validate).orElse(null);
-			if (winnerFuture != null) {
-				try {
-					return winnerFuture.get();
-				} catch (final ExecutionException e) {
-					log.error(e.getMessage());
-				}
-			} else {
-				log.error("no winner detected");
-			}
-		} catch (final InterruptedException e) {
-			log.error(e.getMessage());
+			AdProviderReader winner = new DemandService(agent).call();
+			return winner;
+		} catch (final Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
 
-	private static Future<AdProviderReader> validate(final Future<AdProviderReader> a, final Future<AdProviderReader> b) {
+	public static Future<AdProviderReader> validate(final Future<AdProviderReader> a, final Future<AdProviderReader> b) {
 		try {
 			if (b.get() == null) {
 				return a;

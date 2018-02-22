@@ -44,6 +44,68 @@ public class LocalContext extends Context {
 		isVerboseEnabled = Boolean.parseBoolean(ContextCache.instance.get(ContextProperties.VERBOSE));
 		isMetricsEnabled = Boolean.parseBoolean(ContextCache.instance.get(ContextProperties.METRICS));
 	}
+	
+	
+
+	public static boolean isDspChannelEnabled() {
+		return isDspChannelEnabled;
+	}
+
+
+
+	public static void setDspChannelEnabled(boolean isDspChannelEnabled) {
+		LocalContext.isDspChannelEnabled = isDspChannelEnabled;
+	}
+
+
+
+	public static String getSspVersion() {
+		return sspVersion;
+	}
+
+
+
+	public static void setSspVersion(String sspVersion) {
+		LocalContext.sspVersion = sspVersion;
+	}
+
+
+
+	public static boolean isSspChannelEnabled() {
+		return isSspChannelEnabled;
+	}
+
+
+
+	public static void setSspChannelEnabled(boolean isSspChannelEnabled) {
+		LocalContext.isSspChannelEnabled = isSspChannelEnabled;
+	}
+
+
+
+	public static void setDebugEnabled(boolean isDebugEnabled) {
+		LocalContext.isDebugEnabled = isDebugEnabled;
+	}
+
+
+
+	public static void setAdservingChannelEnabled(boolean isAdservingChannelEnabled) {
+		LocalContext.isAdservingChannelEnabled = isAdservingChannelEnabled;
+	}
+
+
+
+	public static void setVerboseEnabled(boolean isVerboseEnabled) {
+		LocalContext.isVerboseEnabled = isVerboseEnabled;
+	}
+
+
+
+	public static void setMetricsEnabled(boolean isMetricsEnabled) {
+		LocalContext.isMetricsEnabled = isMetricsEnabled;
+	}
+
+
 
 	private static void initData() {
 		uptime = LocalDateTime.now().format(dateTimeFormatter);
