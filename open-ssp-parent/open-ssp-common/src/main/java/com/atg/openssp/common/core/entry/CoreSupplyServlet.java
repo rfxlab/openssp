@@ -44,6 +44,8 @@ public abstract class CoreSupplyServlet<T extends SessionAgent> extends HttpServ
 			hasResult = server.processExchange(agent);
 		} catch (final RequestException e) {
 			log.error(e.getMessage());
+			e.printStackTrace();
+			
 		} finally {
 			stopwatch.stop();
 			if (hasResult) {

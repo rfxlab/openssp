@@ -21,7 +21,8 @@ import com.google.gson.Gson;
 import util.math.FloatComparator;
 
 /**
- * This is the server which is mainly responsible to start the bidprocess, collect the result and build a reponse for the client.
+ * This is the server which is mainly responsible to start the bidprocess,
+ * collect the result and build a reponse for the client.
  * 
  * @author André Schmer
  *
@@ -31,20 +32,25 @@ public class ExchangeServer implements Exchange<RequestSessionAgent> {
 	private static final Logger log = LoggerFactory.getLogger(ExchangeServer.class);
 
 	/**
-	 * Starts the process to exchange and build a response if a {@code VideoResult} can be expected.
+	 * Starts the process to exchange and build a response if a {@code VideoResult}
+	 * can be expected.
 	 * <p>
 	 * Principle of work is the following:
 	 * <ul>
 	 * <li>fetch a list of channels</li>
-	 * <li>invoke the callables due to the {@link ExchangeExecutorServiceFacade}</li>
-	 * <li>Evaluates a winner from the list of futures by making a simple price comparison where the highest price wins</li>
-	 * <li>If a valid winner is evaluated, the response is build and post bid operations such as winningnotifying can be processed</li>
+	 * <li>invoke the callables due to the
+	 * {@link ExchangeExecutorServiceFacade}</li>
+	 * <li>Evaluates a winner from the list of futures by making a simple price
+	 * comparison where the highest price wins</li>
+	 * <li>If a valid winner is evaluated, the response is build and post bid
+	 * operations such as winningnotifying can be processed</li>
 	 * </ul>
 	 * 
 	 * @param {@link
-	 *            RequestSessionAgent}
+	 * 			RequestSessionAgent}
 	 * 
-	 * @return true if a provider, {@link AdProviderReader}, exists and building a response is successful, false otherwise
+	 * @return true if a provider, {@link AdProviderReader}, exists and building a
+	 *         response is successful, false otherwise
 	 */
 	@Override
 	public boolean processExchange(final RequestSessionAgent agent) {
@@ -52,27 +58,30 @@ public class ExchangeServer implements Exchange<RequestSessionAgent> {
 		return evaluateResponse(agent, winner);
 	}
 
-//	private AdProviderReader execute(final SessionAgent agent) {
-//		try {
-//			final List<Callable<AdProviderReader>> callables = ChannelFactory.createListOfChannels(agent);
-//			final List<Future<AdProviderReader>> futures = ExchangeExecutorServiceFacade.instance.invokeAll(callables);
-//			final Future<AdProviderReader> winnerFuture = futures.stream().reduce(ExchangeServer::validate).orElse(null);
-//			if (winnerFuture != null) {
-//				try {
-//					return winnerFuture.get();
-//				} catch (final ExecutionException e) {
-//					log.error(e.getMessage());
-//				}
-//			} else {
-//				log.error("no winner detected");
-//			}
-//		} catch (final InterruptedException e) {
-//			log.error(e.getMessage());
-//		}
-//		return null;
-//	}
-	
-	//FIXME
+	// private AdProviderReader execute(final SessionAgent agent) {
+	// try {
+	// final List<Callable<AdProviderReader>> callables =
+	// ChannelFactory.createListOfChannels(agent);
+	// final List<Future<AdProviderReader>> futures =
+	// ExchangeExecutorServiceFacade.instance.invokeAll(callables);
+	// final Future<AdProviderReader> winnerFuture =
+	// futures.stream().reduce(ExchangeServer::validate).orElse(null);
+	// if (winnerFuture != null) {
+	// try {
+	// return winnerFuture.get();
+	// } catch (final ExecutionException e) {
+	// log.error(e.getMessage());
+	// }
+	// } else {
+	// log.error("no winner detected");
+	// }
+	// } catch (final InterruptedException e) {
+	// log.error(e.getMessage());
+	// }
+	// return null;
+	// }
+
+	// FIXME
 	private AdProviderReader execute(final SessionAgent agent) {
 		try {
 			AdProviderReader winner = new DemandService(agent).call();
@@ -83,7 +92,8 @@ public class ExchangeServer implements Exchange<RequestSessionAgent> {
 		return null;
 	}
 
-	public static Future<AdProviderReader> validate(final Future<AdProviderReader> a, final Future<AdProviderReader> b) {
+	public static Future<AdProviderReader> validate(final Future<AdProviderReader> a,
+			final Future<AdProviderReader> b) {
 		try {
 			if (b.get() == null) {
 				return a;
@@ -105,7 +115,7 @@ public class ExchangeServer implements Exchange<RequestSessionAgent> {
 	private boolean evaluateResponse(final SessionAgent agent, final AdProviderReader winner) {
 		try (Writer out = agent.getHttpResponse().getWriter()) {
 			if (winner != null && winner.isValid()) {
-
+				System.out.println("winner "+new Gson().toJson(winner));
 				final String responseData = winner.buildResponse();
 				out.append(responseData);
 

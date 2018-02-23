@@ -1,0 +1,14 @@
+{
+	"supplier": [{
+			"shortName": "dsp_1",
+			"endPoint": "http://devdsp.hadarone.com/dsp-sim/DemandService",
+			"connectionKeepAlive": true,
+			"openRtbVersion": 2.2,
+			"contentType": "application/json",
+			"supplierId": "1",
+			"currency": "USD",
+			"underTest": 0,
+			"active": 0
+		}
+	]
+}

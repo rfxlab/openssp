@@ -1,10 +1,16 @@
 package com.atg.openssp.core.exchange;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+
 import com.atg.openssp.common.core.entry.SessionAgent;
 import com.atg.openssp.common.demand.Supplier;
 import com.atg.openssp.common.provider.AdProviderReader;
 import com.atg.openssp.common.provider.AdProviderWriter;
 import com.atg.openssp.common.provider.WinningNotifier;
+import com.google.common.base.Charsets;
+import com.google.gson.Gson;
 
 import openrtb.bidresponse.model.SeatBid;
 
@@ -57,16 +63,23 @@ public class RtbAdProvider implements AdProviderReader, AdProviderWriter {
 	@Override
 	public String buildResponse() {
 		// TODO: implement
-		// final String parsedMarkup =
-		// supplier.getSupplierProperties().getParser()
-		// .parseMarkup(winningSeat.getBid()[0].getAdm(), price);
-
-		// final String content = new
-		// ContentBuilderFacade().buildAllContent(parsedMarkup, agent,
-		// ad.getGlobalID());
-		// sb.append(content);
-
-		return supplier.getShortName() + " " + priceEur + " EUR";
+//		 final String parsedMarkup =
+//		 supplier.getSupplierProperties().getParser()
+//		 .parseMarkup(winningSeat.getBid()[0].getAdm(), price);
+//
+//		 final String content = new
+//		 ContentBuilderFacade().buildAllContent(parsedMarkup, agent,
+//		 ad.getGlobalID());
+//		 sb.append(content);
+		
+//		return supplier.getShortName() + " " + priceEur + " EUR";
+		
+		System.out.println("bestBid" + new Gson().toJson(winningSeat.bestBid()));
+		try {
+			return URLDecoder.decode(winningSeat.bestBid().getAdm(), Charsets.UTF_8.name());
+		} catch (Exception e) {
+		}
+		return "";
 	}
 
 	@Override

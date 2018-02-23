@@ -76,8 +76,12 @@ public class DemandService implements Callable<AdProviderReader> {
 	 * @return {@link AdProviderReader}
 	 * @throws Exception
 	 */
+	public AdProviderReader call() throws Exception {
+		return process1();
+	}
+	
 
-	public AdProviderReader call0() throws Exception {
+	public AdProviderReader process0() throws Exception {
 		AdProviderReader adProvider = null;
 		try {
 			final List<DemandBroker> connectors = loadSupplierConnectors();
@@ -158,10 +162,10 @@ public class DemandService implements Callable<AdProviderReader> {
 		return connectors;
 	}
 
-	@Override
-	public AdProviderReader call() throws Exception {
+	
+	public AdProviderReader process1() throws Exception {
 		AdProviderReader adProvider = null;
-		final float impFloor = 0.88f;
+		final float impFloor = 0.81f;
 		final float dealFloor1 = 3.f;
 		final float dealFloor2 = 2.8f;
 		final String currency = "USD";
@@ -190,7 +194,7 @@ public class DemandService implements Callable<AdProviderReader> {
 			Header[] headers = new Header[2];
 			headers[0] = new BasicHeader("x-openrtb-version", supplier1.getOpenRtbVersion());
 			headers[1] = new BasicHeader("ContentType", supplier1.getContentType());
-			URI endpoint = new URI("http://localhost:8082/dsp-sim/DemandService");
+			URI endpoint = new URI("http://devdsp.hadarone.com/dsp-sim/DemandService");
 			final HttpPost httpPost = new HttpPost(endpoint);
 			httpPost.setHeaders(headers);
 
