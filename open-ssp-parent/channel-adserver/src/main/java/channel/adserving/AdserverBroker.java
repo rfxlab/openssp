@@ -18,7 +18,7 @@ import com.google.gson.Gson;
  * @author André Schmer
  *
  */
-public class AdserverBroker extends AbstractBroker {
+public class AdserverBroker extends AbstractAdServerBroker {
 
 	private final Gson gson;
 
@@ -33,7 +33,6 @@ public class AdserverBroker extends AbstractBroker {
 
 	public AdserverBroker() {
 		uriBuilder = new URIBuilder().setCharset(StandardCharsets.UTF_8).setScheme(scheme).setHost(host).setPath(path);
-
 		jsonGetConnector = new JsonGetConnector();
 		gson = new Gson();
 	}
@@ -58,5 +57,7 @@ public class AdserverBroker extends AbstractBroker {
 			}
 		}
 	}
+	
+	
 
 }

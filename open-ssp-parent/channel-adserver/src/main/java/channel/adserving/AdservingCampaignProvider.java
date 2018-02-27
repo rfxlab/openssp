@@ -20,6 +20,16 @@ public class AdservingCampaignProvider implements AdProviderReader, AdProviderWr
 	private int adid;// sent by adserver
 
 	private String vasturl;
+	
+	
+
+	public AdservingCampaignProvider(boolean isValid, float cpm, int adid, String vasturl) {
+		super();
+		this.isValid = isValid;
+		this.cpm = cpm;
+		this.adid = adid;
+		this.vasturl = vasturl;
+	}
 
 	@Override
 	public float getPrice() {

@@ -49,7 +49,7 @@ public class ChannelFactory {
 		 * 
 		 */
 		if (LocalContext.isAdservingChannelEnabled()) {
-			callables.add(new AdservingService(agent));
+			callables.add(new AdservingService(agent, true));
 		}
 
 		/*

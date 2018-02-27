@@ -12,7 +12,7 @@ public class GlobalContext extends Context {
 	public static void refreshContext() {
 		// default value is 500 milliseconds
 		executionTimeout = Long.parseLong(ContextCache.instance.get(ContextProperties.EXECUTION_TIMEOUT) != null ? ContextCache.instance.get(
-		        ContextProperties.EXECUTION_TIMEOUT) : "500");
+		        ContextProperties.EXECUTION_TIMEOUT) : "800");
 
 		// default value is 0.3
 		drawModeration = Float.parseFloat(ContextCache.instance.get(ContextProperties.DRAW_MODERATION) != null ? ContextCache.instance.get(

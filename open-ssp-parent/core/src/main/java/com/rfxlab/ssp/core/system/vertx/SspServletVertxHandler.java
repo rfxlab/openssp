@@ -1,4 +1,4 @@
-package server.vertx;
+package com.rfxlab.ssp.core.system.vertx;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import com.atg.openssp.common.exception.RequestException;
 import com.atg.openssp.core.exchange.ExchangeServer;
 import com.atg.openssp.core.exchange.RequestSessionAgent;
 
-public class VertxServletHandler extends CoreSupplyServlet<RequestSessionAgent> {
+public class SspServletVertxHandler extends CoreSupplyServlet<RequestSessionAgent> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,7 +27,7 @@ public class VertxServletHandler extends CoreSupplyServlet<RequestSessionAgent> 
 		return new ExchangeServer();
 	}
 
-	public VertxServletHandler() throws ServletException {
+	public SspServletVertxHandler() throws ServletException {
 		init();
 	}
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.atg.openssp.common.cache.dto.VideoAd;
 import com.atg.openssp.common.demand.ParamValue;
 import com.atg.openssp.common.exception.ERROR_CODE;
 import com.atg.openssp.common.exception.EmptyCacheException;
@@ -61,6 +62,7 @@ public class EntryValidator {
 		pm.setStartdelay(Integer.valueOf(checkValue(request.getParameter("sd"), "0")));
 		pm.setProtocols(convertProtocolValues(request.getParameter("prot")));
 		pm.setIsTest(checkValue(request.getParameter("test"), "0"));
+		pm.setVideoad(new VideoAd());
 
 		return pm;
 	}

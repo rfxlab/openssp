@@ -1,4 +1,4 @@
-package server.vertx;
+package test.com.rfxlab.adx;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;
@@ -83,7 +83,7 @@ public class SimpleDemandService implements Callable<AdProviderReader> {
 			supplier1.setShortName("dsp1");
 			supplier1.setSupplierId(1l);
 
-			String json = executeGet("http://localhost:8082/dsp-sim/DemandService");
+			String json = executeGet("http://devdsp.hadarone.com/dsp-sim/DemandService");
 			BidResponse bidResponse = new Gson().fromJson(json, BidResponse.class);
 			final ResponseContainer responseContainer = new ResponseContainer(supplier1, bidResponse);
 			BidExchange bidExchange = agent.getBidExchange();

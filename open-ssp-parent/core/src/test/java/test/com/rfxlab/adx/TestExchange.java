@@ -1,4 +1,4 @@
-package server.vertx;
+package test.com.rfxlab.adx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import com.atg.openssp.core.exchange.channel.rtb.DemandService;
 import com.atg.openssp.core.exchange.channel.rtb.OpenRtbConnector;
 import com.atg.openssp.core.system.LocalContext;
 import com.google.gson.Gson;
+import com.rfxlab.ssp.core.system.vertx.SspDataLoader;
 
 import channel.adserving.AdservingService;
 import junit.framework.Assert;
@@ -31,7 +32,7 @@ public class TestExchange {
 	public static void main(String[] args) throws Exception {
 		try {
 			// initing cache data
-			DataIniter.init();
+			SspDataLoader.init();
 
 			final MockHttpServletRequest request = new MockHttpServletRequest();
 			final MockHttpServletResponse response = new MockHttpServletResponse();

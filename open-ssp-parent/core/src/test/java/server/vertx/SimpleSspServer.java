@@ -1,20 +1,16 @@
 package server.vertx;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.atg.openssp.common.core.entry.CoreSupplyServlet;
-import com.atg.openssp.common.core.exchange.Exchange;
-import com.atg.openssp.common.exception.RequestException;
-import com.atg.openssp.core.exchange.ExchangeServer;
-import com.atg.openssp.core.exchange.RequestSessionAgent;
+import com.atg.openssp.common.provider.AdProviderReader;
+import com.rfxlab.ssp.core.system.vertx.SspDataLoader;
+import com.rfxlab.ssp.core.system.vertx.SspServletVertxHandler;
+import com.rfxlab.ssp.core.system.vertx.VertxHttpServletRequest;
+import com.rfxlab.ssp.core.system.vertx.VertxHttpServletResponse;
 
+import channel.adserving.AdserverLocalBroker;
+import channel.adserving.AdservingCampaignProvider;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
@@ -35,12 +31,14 @@ public class SimpleSspServer {
 		router.route().handler(BodyHandler.create());
 
 		// initing cache data
-		DataIniter.init();
+		SspDataLoader.init();
+		AdProviderReader adProvider = new AdservingCampaignProvider(true, 1.5F, 2082, "https://d2.hadarone.com/vast3?li=2082");
+		AdserverLocalBroker.setTestableAdProvider(adProvider);
 		
 		router.route().handler(context -> {
 			VertxHttpServletRequest request = new VertxHttpServletRequest(context);
 			VertxHttpServletResponse response = new VertxHttpServletResponse(context);
-			handlerBidding(request, response);
+			handlerSspRequest(request, response);
 		});
 
 		HttpServer server = vertx.createHttpServer();
@@ -48,9 +46,9 @@ public class SimpleSspServer {
 		server.listen(9790);
 	}
 
-	void handlerBidding(final VertxHttpServletRequest request, final VertxHttpServletResponse response) {
+	void handlerSspRequest(final VertxHttpServletRequest request, final VertxHttpServletResponse response) {
 		try {
-			new VertxServletHandler().handle(request, response);
+			new SspServletVertxHandler().handle(request, response);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

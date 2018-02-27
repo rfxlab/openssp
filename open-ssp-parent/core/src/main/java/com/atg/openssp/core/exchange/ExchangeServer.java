@@ -2,7 +2,6 @@ package com.atg.openssp.core.exchange;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -15,16 +14,15 @@ import com.atg.openssp.common.core.entry.SessionAgent;
 import com.atg.openssp.common.core.exchange.Exchange;
 import com.atg.openssp.common.core.exchange.ExchangeExecutorServiceFacade;
 import com.atg.openssp.common.provider.AdProviderReader;
-import com.atg.openssp.core.exchange.channel.rtb.DemandService;
 import com.google.gson.Gson;
 
 import util.math.FloatComparator;
 
 /**
  * This is the server which is mainly responsible to start the bidprocess,
- * collect the result and build a reponse for the client.
+ * collect the result and build a response for the client.
  * 
- * @author André Schmer
+ * @author André Schmer, TrieuNT
  *
  */
 public class ExchangeServer implements Exchange<RequestSessionAgent> {
@@ -58,43 +56,32 @@ public class ExchangeServer implements Exchange<RequestSessionAgent> {
 		return evaluateResponse(agent, winner);
 	}
 
-	// private AdProviderReader execute(final SessionAgent agent) {
-	// try {
-	// final List<Callable<AdProviderReader>> callables =
-	// ChannelFactory.createListOfChannels(agent);
-	// final List<Future<AdProviderReader>> futures =
-	// ExchangeExecutorServiceFacade.instance.invokeAll(callables);
-	// final Future<AdProviderReader> winnerFuture =
-	// futures.stream().reduce(ExchangeServer::validate).orElse(null);
-	// if (winnerFuture != null) {
-	// try {
-	// return winnerFuture.get();
-	// } catch (final ExecutionException e) {
-	// log.error(e.getMessage());
-	// }
-	// } else {
-	// log.error("no winner detected");
-	// }
-	// } catch (final InterruptedException e) {
-	// log.error(e.getMessage());
-	// }
-	// return null;
-	// }
-
-	// FIXME
-	private AdProviderReader execute(final SessionAgent agent) {
+	protected AdProviderReader execute(final SessionAgent agent) {
 		try {
-			AdProviderReader winner = new DemandService(agent).call();
-			return winner;
-		} catch (final Exception e) {
-			e.printStackTrace();
+			final List<Callable<AdProviderReader>> callables = ChannelFactory.createListOfChannels(agent);
+			final List<Future<AdProviderReader>> futures = ExchangeExecutorServiceFacade.instance.invokeAll(callables);
+			final Future<AdProviderReader> winner = futures.stream().reduce(ExchangeServer::validate).orElse(null);
+			if (winner != null) {
+				try {
+					return winner.get();
+				} catch (final ExecutionException e) {
+					log.error(e.getMessage());
+				}
+			} else {
+				log.error("no winner detected");
+			}
+		} catch (final InterruptedException e) {
+			log.error(e.getMessage());
 		}
 		return null;
 	}
 
-	public static Future<AdProviderReader> validate(final Future<AdProviderReader> a,
-			final Future<AdProviderReader> b) {
+	
+	public static Future<AdProviderReader> validate(final Future<AdProviderReader> a, final Future<AdProviderReader> b) {
 		try {
+			System.out.println("---------------");
+			System.out.println(a.getClass().getName() + " " + a.get() );
+			System.out.println(b.getClass().getName() + " " + b.get() );
 			if (b.get() == null) {
 				return a;
 			}
@@ -105,17 +92,17 @@ public class ExchangeServer implements Exchange<RequestSessionAgent> {
 			if (FloatComparator.greaterThanWithPrecision(a.get().getPriceEur(), b.get().getPriceEur())) {
 				return a;
 			}
-		} catch (final InterruptedException | ExecutionException e) {
+		} catch (final Exception e) {
 			log.error(e.getMessage());
+			e.printStackTrace();
 		}
-
 		return b;
 	}
 
 	private boolean evaluateResponse(final SessionAgent agent, final AdProviderReader winner) {
 		try (Writer out = agent.getHttpResponse().getWriter()) {
 			if (winner != null && winner.isValid()) {
-				System.out.println("winner "+new Gson().toJson(winner));
+				System.out.println("winner " + new Gson().toJson(winner));
 				final String responseData = winner.buildResponse();
 				out.append(responseData);
 

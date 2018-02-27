@@ -1,4 +1,4 @@
-package server.vertx;
+package com.rfxlab.ssp.core.system.vertx;
 
 import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.HttpHeaders;

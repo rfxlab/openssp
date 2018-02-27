@@ -1,4 +1,4 @@
-package server.vertx;
+package com.rfxlab.ssp.core.system.vertx;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.atg.openssp.common.configuration.GlobalContext;
 import com.atg.openssp.core.cache.broker.dto.PricelayerDto;
 import com.atg.openssp.core.cache.broker.dto.SiteDto;
 import com.atg.openssp.core.cache.broker.dto.SupplierDto;
@@ -20,10 +21,12 @@ import com.google.gson.Gson;
 
 
 
-public class DataIniter {
-	private static final Logger log = LoggerFactory.getLogger(DataIniter.class);
+public class SspDataLoader {
+	private static final Logger log = LoggerFactory.getLogger(SspDataLoader.class);
+	final static String path = "./configs/openssp/site_db.json";
 	
 	public static void init() {
+		GlobalContext.refreshContext();
 		LocalContext.setDspChannelEnabled(true);
 		LocalContext.setSspChannelEnabled(true);
 		LocalContext.setAdservingChannelEnabled(true);
@@ -39,7 +42,7 @@ public class DataIniter {
 	protected static boolean loadSiteCaching() {
 		final Gson gson = new Gson();
 		try {
-			final String path = "./configs/openssp/site_db.json";
+			
 			final String content = new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
 			final SiteDto dto = gson.fromJson(content, SiteDto.class);
 			System.out.println(content);

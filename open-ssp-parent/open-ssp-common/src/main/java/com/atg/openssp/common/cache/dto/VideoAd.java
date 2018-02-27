@@ -5,7 +5,7 @@ import java.io.Serializable;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * @author André Schmer
+ * @author André Schmer, TrieuNT
  *
  */
 public class VideoAd implements Serializable {
@@ -13,21 +13,33 @@ public class VideoAd implements Serializable {
 	private static final long serialVersionUID = 2035631518654057068L;
 
 	@SerializedName("videoad_id")
-	private int videoadId;
+	private int videoadId = 0;
 
 	@SerializedName("bidfloor_currency")
 	private String bidfloorCurrency = "EUR";
 
 	@SerializedName("bidfloor_price")
-	private float bidfloorPrice;
+	private float bidfloorPrice = 0F;
 
 	@SerializedName("min_duration")
-	private int minDuration;
+	private int minDuration = 0;
 
 	@SerializedName("max_duration")
-	private int maxDuration;
+	private int maxDuration = 0;
 
 	public VideoAd() {}
+	
+	
+
+	public VideoAd(int videoadId, String bidfloorCurrency, float bidfloorPrice, int minDuration, int maxDuration) {
+		super();
+		this.videoadId = videoadId;
+		this.bidfloorCurrency = bidfloorCurrency;
+		this.bidfloorPrice = bidfloorPrice;
+		this.minDuration = minDuration;
+		this.maxDuration = maxDuration;
+	}
+
 
 	public int getVideoadId() {
 		return videoadId;
