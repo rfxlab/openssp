@@ -16,7 +16,7 @@ import openrtb.tables.VideoBidResponseProtocol;
 /**
  * RequestBuilder builds the BidRequest Object for RTB Exchange.
  * 
- * @author André Schmer. TrieuNT
+ * @author TrieuNT
  *
  */
 public class BidRequestBuilder {
