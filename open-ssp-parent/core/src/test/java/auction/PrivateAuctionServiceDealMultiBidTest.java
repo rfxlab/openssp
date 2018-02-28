@@ -11,6 +11,7 @@ import com.atg.openssp.common.demand.Supplier;
 import com.atg.openssp.common.exception.InvalidBidException;
 import com.atg.openssp.core.exchange.Auction;
 import com.atg.openssp.core.exchange.RtbAdProvider;
+import com.rfxlab.ssp.core.system.vertx.RequestResponseHelper;
 
 import openrtb.bidrequest.model.BidRequest;
 import openrtb.bidresponse.model.BidResponse;

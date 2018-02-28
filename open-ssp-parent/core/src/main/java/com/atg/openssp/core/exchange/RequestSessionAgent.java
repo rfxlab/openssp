@@ -34,11 +34,11 @@ public class RequestSessionAgent extends SessionAgent {
 	 */
 	public RequestSessionAgent(final HttpServletRequest request, final HttpServletResponse response) throws RequestException {
 		super(request, response);
-		paramValue = new EntryValidator().validateEntryParams(request);
+		this.paramValue = new EntryValidator().validateEntryParams(request);
 
 		log.debug(paramValue.toString());
 
-		bidExchange = new BidExchange();
+		this.bidExchange = new BidExchange();
 
 		RequestLogProcessor.instance.setLogData(this);
 		RequestMonitor.monitorRequests();

@@ -1,4 +1,4 @@
-package auction;
+package com.rfxlab.ssp.core.system.vertx;
 
 import java.util.ArrayList;
 import java.util.List;

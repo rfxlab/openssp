@@ -63,6 +63,7 @@ public class EntryValidator {
 		pm.setProtocols(convertProtocolValues(request.getParameter("prot")));
 		pm.setIsTest(checkValue(request.getParameter("test"), "0"));
 		pm.setVideoad(new VideoAd());
+		
 
 		return pm;
 	}
