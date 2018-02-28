@@ -1,22 +1,24 @@
 package com.rfxlab.ssp.core.system.vertx;
 
-import io.netty.handler.codec.http.HttpHeaderNames;
-import io.netty.handler.codec.http.HttpHeaders;
-import io.netty.handler.codec.http.HttpResponseStatus;
-import io.vertx.core.buffer.Buffer;
-import io.vertx.ext.web.RoutingContext;
-
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Locale;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpResponseStatus;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.ext.web.RoutingContext;
 
 public class VertxHttpServletResponse implements HttpServletResponse {
     final RoutingContext context;
@@ -186,7 +188,7 @@ public class VertxHttpServletResponse implements HttpServletResponse {
 
     @Override
     public String getContentType() {
-        return getHeader(HttpHeaders.Names.CONTENT_TYPE);
+        return getHeader(HttpHeaderNames.CONTENT_TYPE.toString());
     }
 
     @Override

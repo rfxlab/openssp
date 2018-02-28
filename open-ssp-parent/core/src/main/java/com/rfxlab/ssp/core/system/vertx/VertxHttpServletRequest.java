@@ -2,21 +2,48 @@ package com.rfxlab.ssp.core.system.vertx;
 
 
 
-import io.netty.handler.codec.http.HttpHeaders;
-import io.vertx.core.net.SocketAddress;
-import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.Session;
-
-
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+
+import javax.servlet.AsyncContext;
+import javax.servlet.DispatcherType;
+import javax.servlet.ReadListener;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionContext;
+import javax.servlet.http.HttpUpgradeHandler;
+import javax.servlet.http.Part;
+
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpHeaders;
+import io.vertx.core.net.SocketAddress;
+import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.Session;
 
 /**
  * HttpServletRequest wrapper over a vert.x {@link io.vertx.core.http.HttpServerRequest}
@@ -170,8 +197,7 @@ public class VertxHttpServletRequest implements HttpServletRequest {
 
     @Override
     public String getServletPath() {
-        // TODO:  again, no real servlet, so this maybe could be context.currentRoute().getPath()
-        throw new UnsupportedOperationException();
+    	return context.currentRoute().getPath();
     }
 
     @Override
@@ -181,14 +207,16 @@ public class VertxHttpServletRequest implements HttpServletRequest {
 
     private class WrapSession implements HttpSession {
         private final Session session;
+        private final long creatineTime;
 
         WrapSession(Session session) {
             this.session = session;
+            this.creatineTime = System.currentTimeMillis();
         }
 
         @Override
         public long getCreationTime() {
-            throw new UnsupportedOperationException();
+            return creatineTime;
         }
 
         @Override
@@ -314,8 +342,7 @@ public class VertxHttpServletRequest implements HttpServletRequest {
 
     @Override
     public boolean authenticate(HttpServletResponse response) throws IOException, ServletException {
-        // TODO: AUTH
-        throw new UnsupportedOperationException();
+        return true;
     }
 
     @Override
@@ -370,12 +397,12 @@ public class VertxHttpServletRequest implements HttpServletRequest {
 
     @Override
     public int getContentLength() {
-        return getIntHeader(HttpHeaders.Names.CONTENT_LENGTH);
+        return getIntHeader(HttpHeaderNames.CONTENT_LENGTH.toString());
     }
 
     @Override
     public long getContentLengthLong() {
-        String header = context.request().headers().get(HttpHeaders.Names.CONTENT_LENGTH);
+        String header = context.request().headers().get(HttpHeaderNames.CONTENT_LENGTH);
         if (header == null) {
             return -1;
         }
@@ -385,7 +412,7 @@ public class VertxHttpServletRequest implements HttpServletRequest {
 
     @Override
     public String getContentType() {
-        return context.request().headers().get(HttpHeaders.Names.CONTENT_TYPE);
+        return context.request().headers().get(HttpHeaderNames.CONTENT_TYPE);
     }
 
 
