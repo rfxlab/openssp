@@ -8,7 +8,7 @@ import com.atg.openssp.common.provider.AdProviderReader;
 /**
  * This class acts as Broker to the local in-memory connector. It uses an in-memory database for bidding process
  * 
- * @author André Schmer
+ * @author André Schmer, TrieuNT
  *
  */
 public class AdserverLocalBroker extends AbstractAdServerBroker {

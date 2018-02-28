@@ -89,7 +89,7 @@ public class WinningNotifier implements Runnable {
 			httpResponse = httpclient.execute(httpPost);
 			statusCode = httpResponse.getStatusLine().getStatusCode();
 		} catch (final IOException e) {
-			throw new NotifyingException(url.substring(0, 80) + " [...] ," + e.getMessage() + ", status " + statusCode + ".");
+			throw new NotifyingException(url + " [...] ," + e.getMessage() + ", status " + statusCode + ".");
 		} finally {
 			httpPost.releaseConnection();
 			try {
