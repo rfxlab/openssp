@@ -94,4 +94,10 @@ public class AdservingCampaignProvider implements AdProviderReader, AdProviderWr
 		return "AdservingCampaignProvider [isValid=" + isValid + ", currency=" + currency + ", cpm=" + cpm + ", adid=" + adid + ", vasturl=" + vasturl + "]";
 	}
 
+	@Override
+	public String getContentType() {
+	    // TODO Auto-generated method stub
+	    return TEXT_PLAIN;
+	}
+
 }

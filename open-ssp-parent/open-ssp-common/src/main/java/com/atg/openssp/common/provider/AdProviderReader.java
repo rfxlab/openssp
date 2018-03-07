@@ -4,25 +4,33 @@ import com.atg.openssp.common.core.entry.SessionAgent;
 
 /**
  * 
- * @author André Schmer
+ * @author André Schmer, TrieuNT
  *
  */
 public interface AdProviderReader {
 
-	float getPrice();
+    public static final String APPLICATION_JAVASCRIPT = "application/javascript";
+    public static final String APPLICATION_JSON = "application/json";
+    public static final String TEXT_XML = "text/xml";
+    public static final String TEXT_PLAIN = "text/plain";
+    public static final String TEXT_HTML = "text/html";
 
-	float getPriceEur();
+    float getPrice();
 
-	String getCurrrency();
+    float getPriceEur();
 
-	void perform(SessionAgent agent);
+    String getCurrrency();
 
-	String buildResponse();
+    void perform(SessionAgent agent);
 
-	String getVendorId();
+    String buildResponse();
 
-	boolean isValid();
+    String getVendorId();
 
-	String getAdid();
+    boolean isValid();
+
+    String getAdid();
+
+    String getContentType();
 
 }

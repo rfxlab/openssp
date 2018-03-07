@@ -1,8 +1,6 @@
 package com.atg.openssp.core.exchange;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.nio.charset.Charset;
 
 import com.atg.openssp.common.core.entry.SessionAgent;
 import com.atg.openssp.common.demand.Supplier;
@@ -184,6 +182,11 @@ public class RtbAdProvider implements AdProviderReader, AdProviderWriter {
 		RtbAdProvider build() {
 			return rtbAdProvider;
 		}
+	}
+
+	@Override
+	public String getContentType() {
+	    return TEXT_PLAIN;
 	}
 
 }
